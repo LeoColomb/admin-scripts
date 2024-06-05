@@ -1,41 +1,78 @@
-# Welcome to the Admin Scripts Repo!
+# Python Admin Tools
 
-Here you will find a variety of Bash, Powershell and Python script examples that can be utilized as a jumping off point for creating your own automation scripts to be used with the [Bitwarden CLI](https://bitwarden.com/help/cli/) and/or [APIs](https://bitwarden.com/help/bitwarden-apis/). 
+## Requirements Before Running The Script
+- Fill in the [config.cfg](/config.cfg) file
 
-***Important things to note:***
-- Admin Scripts are currently divided into separate folders by type: _API Scripts, Bash, Powershell, and Python_
-- Admin scripts are meant to act as ***examples***. They are not written in a way that can be run as is and so will require at least some modifications/insertions
-- Most scripts contain commented instructions, so please read through thoroughly/carefully
+## Examples
 
-*Additional documenation to help you get started:*<br>
-[Password Manager CLI Guide](https://bitwarden.com/help/cli/)<Br>
-[Vault Management API Reference](https://bitwarden.com/help/vault-management-api/)<br>
-[Bitwarden Public API Reference](https://bitwarden.com/help/api/)<br>
-[Guide to using Postman to access the Bitwarden API](https://community.bitwarden.com/t/guide-to-using-postman-to-access-the-bitwarden-api/56475)<br>
-[Guide for using the Vault Management API in Python](https://github.com/bitwarden-labs/admin-scripts/wiki/Vault-Management-API-in-Python)
+To print script usage:
 
+```shell
+python3 bwAdminTools.py -h
+```
 
+To migrate permissions from & to Bitwarden servers:
 
-## Commonly Used Scripts Examples
+```shell
+python3 bwAdminTools.py -c migratebw -f config.cfg
+```
 
-### Collection Permission Inheritance
-[Inherit Parent Permissions (CLI/Bash)](https://github.com/bitwarden-labs/admin-scripts/blob/main/Bash%20Scripts/inheritparentpermissions.sh)
+## Config File Description
 
+### Basic Configuration
 
-### Confirm Accepted Users
-[Password Manager: Confirm All Accepted Users (CLI/Bash)](https://github.com/bitwarden-labs/admin-scripts/blob/main/Bash%20Scripts/bwConfirmAcceptedPeople.sh)<br>
-[Password Manager: Confirm All Accepted Users (CLI/Powershell)](https://github.com/bitwarden-labs/admin-scripts/blob/main/Powershell/bwConfirmAcceptedPeople.ps1)<br>
-[Password Manager: Confirm All Accepted Users (API/Powershell)](https://github.com/bitwarden-labs/admin-scripts/blob/main/API%20Scripts/Bitwarden%20Public%20API/bwConfirmAccepted-api.ps1)<br>
-[Password Manager: Confirm All Accepted Users with Password (CLI/Bash)](https://github.com/bitwarden-labs/admin-scripts/blob/main/Bash%20Scripts/bwConfirmAcceptedPeopleWPass.sh)<br>
-[Secrets Manager: Confirmed All Accepted Users (CLI/Bash)](https://github.com/bitwarden-labs/admin-scripts/blob/main/Bash%20Scripts/bwConfirmAcceptedPeopleSM.sh)<br>
-[Secrets Manager: Confirmed All Accepted Users (CLI/Powershell)](https://github.com/bitwarden-labs/admin-scripts/blob/main/Powershell/bwConfirmAcceptedPeopleSM.ps1)
+```properties
+bw_vault_uri=
+```
 
-### List Organization Members
-[List All Organization Members (CLI/Bash)](https://github.com/bitwarden-labs/admin-scripts/blob/main/Bash%20Scripts/listmembers.sh)<Br>
-[List All Organization Members (CLI/Powershell)](https://github.com/bitwarden-labs/admin-scripts/blob/main/Powershell/ListMembers.ps1)<Br>
-[List ALl Organization Members w/ 2FA Check (CLI/Powershell)](https://github.com/bitwarden-labs/admin-scripts/blob/main/Powershell/ListMembers2FACheck.ps1)
+FQDN of your web vault e.g. https://bitwarden.example.com/ if your are self-hosted or https://vault.bitwarden.com/ if you are using the Bitwarden cloud
 
+```properties
+bw_org_client_id=
+bw_org_client_secret=
+```
 
+To obtain client_id and client_secret for public API, see: https://bitwarden.com/help/public-api/#authentication
 
-## Disclaimer
-Please note that the projects in Bitwarden Labs are experimental and not officially supported by Bitwarden. They are provided "as is" with no guarantees.
+```properties
+bw_org_id=
+```
+
+Fill in with your Bitwarden Organization's GUID. Take the "client_id" above and remove the "organization." text.
+
+```properties
+bw_acc_client_id=
+bw_acc_client_secret=
+```
+
+How to obtain personal API key: https://bitwarden.com/help/personal-api-key/
+
+### For Bitwarden-to-Bitwarden migration, the below configurations are required
+
+[Official Docs](https://bitwarden.com/help/migration-script/)
+
+```properties
+dest_bw_vault_uri=
+```
+
+FQDN of your web vault e.g. https://bitwarden.example.com/ if your are self-hosted or https://vault.bitwarden.com/ if you are using the Bitwarden cloud
+
+```properties
+dest_bw_org_client_id=
+dest_bw_org_client_secret=
+```
+
+To obtain client_id and client_secret for public API, see: https://bitwarden.com/help/public-api/#authentication
+
+```properties
+dest_bw_org_id=
+```
+
+Fill in with your Bitwarden Organization's GUID. Take the "client_id" above and remove the "organization." text.
+
+```properties
+dest_bw_acc_client_id=
+dest_bw_acc_client_secret=
+```
+
+How to obtain personal API key: https://bitwarden.com/help/personal-api-key/

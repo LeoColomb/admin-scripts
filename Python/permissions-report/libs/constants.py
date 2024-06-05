@@ -1,4 +1,0 @@
-#Constants
-CONFIG_FILE = "config.cfg"
-DEFAULT_ROTATION_DAYS = 365
-THRESHOLDS = [14,30]
